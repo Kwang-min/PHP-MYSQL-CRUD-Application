@@ -5,6 +5,9 @@
   VALUES('MySQL', 'MySQL is...', NOW())
   ";
 
-  mysqli_query($conn,$sql);
+  $result = mysqli_query($conn,$sql);
+
+  if($result === false){
   echo mysqli_error($conn);
+}
 ?>
