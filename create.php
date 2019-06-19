@@ -8,7 +8,15 @@ while($row = mysqli_fetch_array($result)){
   $list = $list."<li><a href=\"index.php?id={$row['id']}\">{$escaped_title}</a></li>";
 }
 
-$article = array('title'=>'Welcome', 'description'=>'Welcome Web!!');
+$conn = mysqli_connect('localhost','root','admin1234','opentutorials');
+$sql = "SELECT * FROM author";
+$result = mysqli_query($conn, $sql);
+$select_form = '<select name = "author_id">';
+while($row = mysqli_fetch_array($result)) {
+  $select_form = $select_form.'<option value = "'.$row['id'].'">'.$row['name'].'</option>';
+}
+$select_form = $select_form.'</select>';
+
 
 ?>
 <!doctype html>
@@ -25,6 +33,7 @@ $article = array('title'=>'Welcome', 'description'=>'Welcome Web!!');
     <form action="process_create.php" method="POST">
       <p><input type="text" name="title" placeholder="title"></p>
       <p><textarea name="description" placeholder="description"></textarea></p>
+      <?php echo $select_form ?>
       <p><input type="submit"></p>
     </form>
   </body>
